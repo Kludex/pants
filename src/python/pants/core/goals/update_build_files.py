@@ -261,12 +261,13 @@ async def update_build_files(
         if change_descriptions
     )
     if not changed_build_files:
-        msg = "No required changes to BUILD files found."
-        if not update_build_files_subsystem.check:
-            msg += softwrap(
+        if update_build_files_subsystem.check:
+            msg = "No required changes to BUILD files found."
+        else:
+            msg = softwrap(
                 f"""
-                However, there may still be deprecations that `update-build-files` doesn't know
-                how to fix. See {doc_url('upgrade-tips')} for upgrade tips.
+                No required changes to BUILD files found. However, there may still be deprecations that
+                `update-build-files` doesn't know how to fix. See {doc_url('upgrade-tips')} for upgrade tips.
                 """
             )
         logger.info(msg)
